@@ -1,0 +1,33 @@
+<%
+action = @post.persisted? ? post_url(@post) : posts_url
+method = @post.persisted? ? "PATCH" : "POST"
+button = @post.persisted? ? "Update Post!" : "Create Post!"
+ %>
+
+ <form class="" action="<%= action %>" method="post">
+   <input type="hidden" name="_method" value="<%= method %>">
+   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+   <label for="post_title">Title</label>
+   <input type="text" name="post[title]" value="<%= @post.title %>">
+   <br><br>
+
+   <label for="post_sub">Subreddits to Post to</label>
+   <br>
+   <% Sub.all.each do |subreddit| %>
+   <label>
+      <input type="checkbox" name="post[sub_ids][]" <%= "checked" if @post.subs.include?(subreddit) %> value="<%= subreddit.id %>">
+      <%= subreddit.title %>
+   </label>
+   <% end %><br><br>
+   <label for="post_url">URL</label>
+   <input type="text" name="post[url]" value="<%= @post.url %>">
+   <br><br>
+
+   <label for="post_content">Content</label>
+   <textarea name="post[content]" rows="8" cols="40"><%= @post.content %></textarea>
+   <br><br>
+
+   <input type="submit" value="<%= button %>">
+
+ </form>

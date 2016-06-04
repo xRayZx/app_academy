@@ -1,0 +1,26 @@
+<h1><%= @sub.title %></h1>
+<h3><%= @sub.description %></h3>
+
+<table>
+  <tr>
+    <th>Votes</th>
+    <th>↑/↓</th>
+    <th>Post</th>
+    <th>Author</th>
+  </tr>
+  <% @sub.posts.each_with_index do |post, idx| %>
+  <tr>
+    <td><%= "#{post.votes.map(&:value).inject(0, :+)}" %></td>
+    <td><%= button_to "↑", post_upvote_url(@sub, post)%>
+        <%= button_to "↓", post_downvote_url(@sub, post)%>
+    </td>
+    <td><%= link_to post.title, post_url(post) %></td>
+    <td><%= "#{post.author.username}" %></td>
+  </tr>
+  <% end %>
+</table>
+
+<h4>Links</h4>
+<%= link_to "New Post", new_sub_post_url(@sub) %><br>
+<%= link_to "Home", subs_url %><br>
+<%= link_to "Edit Subreddit", edit_sub_url(@sub) %>

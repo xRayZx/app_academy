@@ -1,0 +1,10 @@
+<h1>Reddit</h1>
+
+<% @subs.each_with_index do |sub, idx| %>
+  <%= "#{idx + 1}" %>
+  <%= link_to sub.title, sub_url(sub) %>
+  <%= "mod: #{sub.moderator.username}" %><br>
+<% end %>
+<br><br>
+
+<%= link_to "Create a Subreddit", new_user_sub_url(current_user) %>

@@ -1,0 +1,19 @@
+<h1><%= @post.title %></h1>
+<h3><%= @post.url %></h3>
+<%= @post.content %>
+
+<br><br>
+<h3>Comments (<%=@post.comments.count%>)</h3>
+<% @post.comments.each do |comment| %>
+  <% if comment.parent_comment_id.nil? %>
+    <%= render 'comments/comment', comment: comment %>
+  <% end %>
+<% end %>
+
+<%= render 'comments/form', post: @post, parent_comment: nil %>
+
+<footer>
+  <h4>Links</h4>
+  <%= link_to "Home", subs_url %><br>
+  <%= link_to "Edit Post", edit_post_url(@post) %>
+</footer>

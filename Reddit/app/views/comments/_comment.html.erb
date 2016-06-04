@@ -1,0 +1,13 @@
+
+<%= link_to comment.content, comment_url(comment) %>
+    <%= "#{comment.votes.map(&:value).inject(0, :+)}" %>
+    by: <%= comment.author.username %>
+    <%= button_to "↑", comment_upvote_url(comment)%>
+    <%= button_to "↓", comment_downvote_url(comment)%>
+    <br>
+
+<ul>
+  <% comment.child_comments.each do |child| %>
+    <li><%= render 'comments/comment', comment: child %></li>
+  <% end %>
+</ul>
